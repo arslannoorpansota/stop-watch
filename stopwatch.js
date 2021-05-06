@@ -17,36 +17,37 @@ function display() {
     let elapsed_sec = elapsed_time.getSeconds() > 9 ? elapsed_time.getSeconds() : "0" + elapsed_time.getSeconds()
     let elapsed_milli = Math.round(elapsed_time.getMilliseconds() / 10)
     let elapsed = elapsed_milli > 9 ? elapsed_milli : "0" + elapsed_milli
+    console.log(elapsed_sec)
     p.textContent = `${elapsed_sec} : ${elapsed}`
 
 }
 //onStart
 
 function start() {
-    if (stoped_time1 == null) {
+    if (btn1.textContent == 'Start') {
         start_time = new Date();
+        btn1.textContent = 'Stop'
+        update = setInterval(display, 10);
+    }
+    //onStop
+    else if (btn1.textContent == 'Stop') {
+        clearInterval(update);
+        btn1.textContent = 'Resume'
+        stoped_time1 = new Date()
+        display()
+
     }
     //onResume
     else {
         stoppedDuration += (new Date() - stoped_time1);
-        btn1.textContent = 'Start'
-        btn2.disabled = false;
-
+        btn1.textContent = 'Stop'
+        update = setInterval(display, 10);
 
     }
-    update = setInterval(display, 10);
-    btn1.disabled = true
-}
-
-//onStop
-function stop() {
-    clearInterval(update);
-    btn1.disabled = false;
-    btn1.textContent = 'Resume'
-    btn2.disabled = true;
-    stoped_time1 = new Date()
 
 }
+
+
 function reset() {
     clearInterval(update);
     btn1.disabled = false;
@@ -54,7 +55,6 @@ function reset() {
     stoped_time1 = null;
     stoppedDuration = 0;
     btn1.textContent = 'Start'
-    btn2.disabled = false;
     display()
 
 
