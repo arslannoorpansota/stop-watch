@@ -17,7 +17,6 @@ function display() {
     let elapsed_sec = elapsed_time.getSeconds() > 9 ? elapsed_time.getSeconds() : "0" + elapsed_time.getSeconds()
     let elapsed_milli = Math.round(elapsed_time.getMilliseconds() / 10)
     let elapsed = elapsed_milli > 9 ? elapsed_milli : "0" + elapsed_milli
-    console.log(elapsed_sec)
     p.textContent = `${elapsed_sec} : ${elapsed}`
 
 }
