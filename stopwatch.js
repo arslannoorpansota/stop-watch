@@ -1,5 +1,6 @@
 //References
 let p = document.querySelector('p')
+let elem = document.querySelector('main')
 let update;
 let btn1 = document.querySelector('.btn1')
 let btn2 = document.querySelector('.btn2')
@@ -46,7 +47,6 @@ function start() {
 
 }
 
-
 function reset() {
     clearInterval(update);
     btn1.disabled = false;
@@ -56,6 +56,46 @@ function reset() {
     btn1.textContent = 'Start'
     display()
 
-
-
 }
+
+
+document.onfullscreenchange = function ( event ) {
+    if (document.fullscreenElement) {
+        document.querySelector('.togglebtn').innerHTML = '<img src="download.png" />'
+    } else {
+        document.querySelector('.togglebtn').innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAQAAABLCVATAAAAK0lEQVR4AWNAgFEwCv6jQnxyQ9MgAoBog0YNGoJgFNAxHY0aNBKK2lEwCgCCjZtl7xalSwAAAABJRU5ErkJggg==" />';
+    }
+};
+
+//toggle function
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().then(function () {
+                // document.querySelector('.togglebtn').innerHTML = '<img src="download.png" />'
+            }, function () {
+                console.log("Cant do full screen")
+            })
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+
+
+    }
+    else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen().then(function () {
+                // document.querySelector('.togglebtn').innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAQAAABLCVATAAAAK0lEQVR4AWNAgFEwCv6jQnxyQ9MgAoBog0YNGoJgFNAxHY0aNBKK2lEwCgCCjZtl7xalSwAAAABJRU5ErkJggg==" />';
+            });
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+
+
+    }
+}
+
